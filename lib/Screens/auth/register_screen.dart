@@ -96,151 +96,158 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: const Text("Register"),
-      ),
-
-      body: Form(
-        key: _formKey,
+      body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+            vertical: 20,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
 
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-
-            children: [
-
-              const SizedBox(height: 20),
-
-              Text(
-                "Create Account ✨",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              const Text(
-                "Sign up to start shopping",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
-              ),
-
-              const SizedBox(height: 30),
-
-              CustomTextField(
-                controller: nameController,
-                label: "Name",
-                icon: Icons.person,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return "Name is required";
-                  }
-                  return null;
-                },
-              ),
-
-              const SizedBox(height: 20),
-
-              CustomTextField(
-                controller: phoneController,
-                label: "Phone",
-                icon: Icons.phone,
-                keyboardType: TextInputType.phone,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return "Phone is required";
-                  }
-                  return null;
-                },
-              ),
-
-              const SizedBox(height: 20),
-
-              CustomTextField(
-                controller: emailController,
-                label: "Email",
-                icon: Icons.email,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return "Email is required";
-                  }
-
-                  if (!value.contains("@")) {
-                    return "Enter a valid email";
-                  }
-
-                  return null;
-                },
-              ),
-
-              const SizedBox(height: 20),
-
-              CustomTextField(
-                controller: passwordController,
-                label: "Password",
-                icon: Icons.lock,
-                isPassword: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Password is required";
-                  }
-
-                  if (value.length < 6) {
-                    return "Password must be at least 6 characters";
-                  }
-
-                  return null;
-                },
-              ),
-
-              const SizedBox(height: 30),
-
-              isLoading
-                  ? const Center(
-                child: CircularProgressIndicator(),
-              )
-                  : CustomButton(
-                text: "Register",
-                onPressed: register,
-              ),
-
-              const SizedBox(height: 20),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-
-                children: [
-
-                  const Text("Already have an account?"),
-
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
+                Center(
+                  child: CircleAvatar(
+                    radius: 45,
+                    backgroundColor:
+                    AppColors.primary.withOpacity(.15),
+                    child: const Icon(
+                      Icons.person_add_alt_1,
+                      size: 45,
+                      color: AppColors.primary,
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+
+                const SizedBox(height: 35),
+
+                const Text(
+                  "Create Account",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                const Text(
+                  "Sign up to start shopping",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                  ),
+                ),
+
+                const SizedBox(height: 35),
+
+                CustomTextField(
+                  controller: nameController,
+                  label: "Full Name",
+                  icon: Icons.person_outline,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Name is required";
+                    }
+                    return null;
+                  },
+                ),
+
+                const SizedBox(height: 20),
+
+                CustomTextField(
+                  controller: phoneController,
+                  label: "Phone",
+                  icon: Icons.phone_outlined,
+                  keyboardType: TextInputType.phone,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Phone is required";
+                    }
+                    return null;
+                  },
+                ),
+
+                const SizedBox(height: 20),
+
+                CustomTextField(
+                  controller: emailController,
+                  label: "Email",
+                  icon: Icons.email_outlined,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Email is required";
+                    }
+
+                    if (!value.contains("@")) {
+                      return "Enter a valid email";
+                    }
+
+                    return null;
+                  },
+                ),
+
+                const SizedBox(height: 20),
+
+                CustomTextField(
+                  controller: passwordController,
+                  label: "Password",
+                  icon: Icons.lock_outline,
+                  isPassword: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Password is required";
+                    }
+
+                    if (value.length < 6) {
+                      return "Password must be at least 6 characters";
+                    }
+
+                    return null;
+                  },
+                ),
+
+                const SizedBox(height: 35),
+
+                isLoading
+                    ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+                    : CustomButton(
+                  text: "REGISTER",
+                  onPressed: register,
+                ),
+
+                const SizedBox(height: 25),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Already have an account?",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

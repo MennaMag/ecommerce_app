@@ -85,117 +85,135 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.white,
-        centerTitle: true,
-        title: const Text("Login"),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 30),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+            vertical: 20,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
 
-              Text(
-                "Welcome Back 👋",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              const Text(
-                "Login to continue",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                ),
-              ),
-
-              const SizedBox(height: 35),
-
-              CustomTextField(
-                controller: emailController,
-                label: "Email",
-                icon: Icons.email,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return "Email is required";
-                  }
-
-                  if (!value.contains("@")) {
-                    return "Enter a valid email";
-                  }
-
-                  return null;
-                },
-              ),
-
-              const SizedBox(height: 20),
-
-              CustomTextField(
-                controller: passwordController,
-                label: "Password",
-                icon: Icons.lock,
-                isPassword: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Password is required";
-                  }
-
-                  if (value.length < 6) {
-                    return "Password must be at least 6 characters";
-                  }
-
-                  return null;
-                },
-              ),
-
-              const SizedBox(height: 30),
-
-              isLoading
-                  ? const Center(
-                child: CircularProgressIndicator(),
-              )
-                  : CustomButton(
-                text: "Login",
-                onPressed: login,
-              ),
-
-              const SizedBox(height: 20),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Don't have an account?"),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const RegisterScreen(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      "Register",
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
+                Center(
+                  child: CircleAvatar(
+                    radius: 45,
+                    backgroundColor: AppColors.primary.withOpacity(.15),
+                    child: const Icon(
+                      Icons.shopping_bag_outlined,
+                      color: AppColors.primary,
+                      size: 45,
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+
+                const SizedBox(height: 35),
+
+                const Text(
+                  "Welcome Back",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                const Text(
+                  "Login to your account",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                  ),
+                ),
+
+                const SizedBox(height: 35),
+
+                CustomTextField(
+                  controller: emailController,
+                  label: "Email",
+                  icon: Icons.email_outlined,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Email is required";
+                    }
+
+                    if (!value.contains("@")) {
+                      return "Enter a valid email";
+                    }
+
+                    return null;
+                  },
+                ),
+
+                const SizedBox(height: 20),
+
+                CustomTextField(
+                  controller: passwordController,
+                  label: "Password",
+                  icon: Icons.lock_outline,
+                  isPassword: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Password is required";
+                    }
+
+                    if (value.length < 6) {
+                      return "Password must be at least 6 characters";
+                    }
+
+                    return null;
+                  },
+                ),
+
+                const SizedBox(height: 35),
+
+                isLoading
+                    ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+                    : CustomButton(
+                  text: "LOGIN",
+                  onPressed: login,
+                ),
+
+                const SizedBox(height: 25),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't have an account?",
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const RegisterScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Register",
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

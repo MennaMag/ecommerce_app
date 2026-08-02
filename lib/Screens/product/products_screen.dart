@@ -20,7 +20,6 @@ class ProductsScreen extends StatefulWidget {
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -32,15 +31,23 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.white,
-        title: Text(widget.categoryName),
+        backgroundColor: AppColors.background,
+        foregroundColor: AppColors.primary,
+        elevation: 0,
         centerTitle: true,
+        title: Text(
+          widget.categoryName.toUpperCase(),
+          style: const TextStyle(
+            color: AppColors.primary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
+
       body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
-
           if (state is ProductLoading) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -54,43 +61,35 @@ class _ProductsScreenState extends State<ProductsScreen> {
           }
 
           if (state is ProductSuccess) {
-            return Padding(
-              padding: const EdgeInsets.all(15),
-              child: GridView.builder(
-                itemCount: state.products.length,
-                gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                  childAspectRatio: .65,
-                ),
-                itemBuilder: (context, index) {
-
-                  final product = state.products[index];
-
-                  return ProductCard(
-                    title: product.title,
-                    image: product.image,
-                    price: product.price,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ProductDetailsScreen(
-                            product: {
-                              "title": product.title,
-                              "image": product.image,
-                              "price": product.price,
-                              "description": product.description,
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
+            return GridView.builder(
+              padding: const EdgeInsets.all(20),
+              itemCount: state.products.length,
+              gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                childAspectRatio: .63,
               ),
+              itemBuilder: (context, index) {
+                final product = state.products[index];
+
+                return ProductCard(
+                  title: product.title,
+                  image: product.image,
+                  price: product.price,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ProductDetailsScreen(
+                          product: product,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             );
           }
 
